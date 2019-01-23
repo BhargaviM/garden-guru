@@ -7,6 +7,9 @@ import SavePlantsSelection from './form-components/SavePlantsSelection';
 import SaveStatus from './form-components/SaveStatus';
 import PlantCare from './plant-care/PlantCare';
 import axios from 'axios';
+import Scroll from 'react-scroll';
+
+var scroller = Scroll.scroller;
 
 function formFullName (firstName, lastName) {
     let fullName = '';
@@ -23,6 +26,7 @@ function formFullName (firstName, lastName) {
 class Form extends Component {
     state = {
         selectedPlants: [], // save a list of selected plants
+        customPlants: '',
         saveStatus: 'none',
         selectedZone: '',
         firstName: '',
@@ -39,6 +43,11 @@ class Form extends Component {
     handlePlantsSelectionChange = (selectedPlants) => {
         this.setState({ selectedPlants });
         this.setState({ saveStatus: 'none' });
+    }
+
+    // Save the plants input text box
+    setPlantNamesText = event => {
+        this.setState({ customPlants: event.target.value });
     }
 
     // Save Zone Selected in state
@@ -120,6 +129,7 @@ class Form extends Component {
             plants: this.state.selectedPlants.map(plant => {
                 return plant.value;
             }),
+            custom_plants: this.state.customPlants,
             zone: this.state.selectedZone.value,
             email: this.state.email,
             first_name: this.state.firstName,
@@ -138,6 +148,12 @@ class Form extends Component {
                     isLoading: ''
                 });
                 console.log("POST successful.");
+
+                scroller.scrollTo('myScrollToElement', {
+                    duration: 1500,
+                    delay: 100,
+                    smooth: true
+                });
             })
             .catch(err => {
                 this.setState({saveStatus: 'error'});
@@ -154,7 +170,8 @@ class Form extends Component {
                                 <div className="box">
                                     <PlantSelector
                                         selectedPlants={this.state.selectedPlants}
-                                        handlePlantsSelectionChange={this.handlePlantsSelectionChange}/>
+                                        handlePlantsSelectionChange={this.handlePlantsSelectionChange}
+                                        setPlantNamesText={this.setPlantNamesText}/>
                                     <ZoneSelector
                                         selectedZone={this.state.selectedZone}
                                         handleZoneChange={this.handleZoneChange}/>

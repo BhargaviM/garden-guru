@@ -5,7 +5,14 @@ import axios from 'axios';
 class PlantSelector extends Component {
     state = {
         groupedOptions: [],
-        plantCategories: {}
+        plantCategories: {},
+        dontSeeAPlantLinkState: '',
+        plantsInputBoxState: 'is-hidden'
+    }
+
+    showPlantsInputBox = event => {
+        this.setState({ dontSeeAPlantLinkState: 'is-hidden' });
+        this.setState({ plantsInputBoxState: '' });
     }
 
     componentDidMount() {
@@ -43,19 +50,6 @@ class PlantSelector extends Component {
                 }
 
                 this.setState({ groupedOptions: groupedOptions });
-
-                // if (res && 'data' in res && 'plants' in res.data) {
-                //     console.log("Res: "+JSON.stringify(res.data));
-                //     let groupedOptions = [{
-                //         label: "Evergreens",
-                //         options: res.data.plants.map(obj => {
-                //         return {label: obj.name, value: obj._id};
-                //     })}];
-                //
-                //     this.setState({ groupedOptions: groupedOptions });
-                // } else {
-                //     console.log("No plants for tag"+JSON.stringify(res));
-                // }
             }))
             .catch(function (error) {
                 // handle error
@@ -81,6 +75,13 @@ class PlantSelector extends Component {
             padding: '0.16666666666667em 0.5em',
             textAlign: 'center',
         };
+        const showPlantsTextBoxStyles = {
+            cursor: 'pointer',
+            textDecoration: 'underline'
+        }
+        const plantNamesTextBoxStyles = {
+            marginTop: '.5em'
+        }
 
         const formatGroupLabel = data => (
             <div style={groupStyles}>
@@ -100,6 +101,16 @@ class PlantSelector extends Component {
                         formatGroupLabel={formatGroupLabel}
                         isMulti
                     />
+                </div>
+                <div
+                    className={"link-button is-pulled-right is-size-7 has-text-info " + this.state.dontSeeAPlantLinkState}
+                    onClick={this.showPlantsInputBox}
+                    style={showPlantsTextBoxStyles}
+                    >Don't see a plant?</div>
+                <div className={this.state.plantsInputBoxState}
+                    style={plantNamesTextBoxStyles}>
+                    <input className='input' placeholder="Enter plant names seperated by a comma. e.g: Rose, Tulip"
+                        onChange={this.props.setPlantNamesText}/>
                 </div>
             </div>
         );

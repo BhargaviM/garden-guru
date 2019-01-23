@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
+// import Logo from './images/green-logo.png';
+import Logo from './images/watering-can.png';
 
 class NavBar extends Component {
     render() {
+        // CSS styling for the Logo on the top left
+        const imgStyle = { 'maxHeight': '42px', 'paddingRight': '5px'};
+        const spanStyle = { 'color': '#c3ef72' };
+
         // Nav bar copied from https://github.com/dansup/bulma-templates/blob/master/templates/tabs.html
         return (
             <div className="hero-head">
@@ -9,7 +15,8 @@ class NavBar extends Component {
                     <div className="container">
                         <div className="navbar-brand">
                             <a className="navbar-item" href="/">
-                                <img src="http://bulma.io/images/bulma-type-white.png" alt="Logo" />
+                                <img src={Logo} alt="Logo" style={imgStyle}/>
+                                <span className="title has-text-weight-bold" style={spanStyle}>Garden Guru</span>
                             </a>
                             <span className="navbar-burger burger" data-target="navbarMenu">
                                 <span></span>

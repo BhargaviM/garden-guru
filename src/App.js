@@ -9,7 +9,7 @@ class App extends Component {
         return (
             <div>
                 <div>
-                    <section className="hero is-info is-medium is-bold">
+                    <section className="hero is-primary is-bold">
                         <NavBar />
                         <Header />
                     </section>
