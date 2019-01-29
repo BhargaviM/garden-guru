@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class SavePlantsSelection extends Component {
+class SaveButton extends Component {
     render() {
         return (
             <div className="control">
@@ -14,4 +14,4 @@ class SavePlantsSelection extends Component {
     }
 }
 
-export default SavePlantsSelection;
+export default SaveButton;

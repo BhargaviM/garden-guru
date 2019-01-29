@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
-// import Logo from './images/green-logo.png';
+import { Link } from 'react-router-dom'
 import Logo from './images/watering-can.png';
 
 class NavBar extends Component {
     render() {
         // CSS styling for the Logo on the top left
         const imgStyle = { 'maxHeight': '42px', 'paddingRight': '5px'};
-        const spanStyle = { 'color': '#c3ef72' };
+        const spanStyle = {
+            'fontFamily': 'Oswald, sans-serif',
+            'textDecoration': 'underline'
+        };
 
         // Nav bar copied from https://github.com/dansup/bulma-templates/blob/master/templates/tabs.html
         return (
@@ -28,9 +31,9 @@ class NavBar extends Component {
                             <div className="navbar-end">
                                 <div className="tabs is-right">
                                     <ul>
-                                        <li className="is-active"><a href="/">Home</a></li>
-                                        <li><a href="/">Team</a></li>
-                                        <li><a href="/">Help</a></li>
+                                        <li className={this.props.homeNavStatus}><Link to='/' onClick={this.props.handleHomeClick}>Home</Link></li>
+                                        <li className={this.props.aboutUsNavStatus}><Link to='/about-us' onClick={this.props.handleAboutUsClick}>About Us</Link></li>
+                                        <li className={this.props.helpNavStatus}><Link to='/help' onClick={this.props.handleHelpClick}>Help</Link></li>
                                     </ul>
                                 </div>
                             </div>

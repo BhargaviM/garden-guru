@@ -6,13 +6,13 @@ class Names extends Component {
             <div className="field is-grouped">
             <div className="control is-expanded">
                     <label className="label">First Name </label>
-                    <input className='input' placeholder="First Name"
+                    <input className='input'
                         onChange={this.props.setFirstNameState}/>
 
             </div>
             <div className="control is-expanded">
                     <label className="label">Last Name </label>
-                    <input className='input' placeholder="Last Name"
+                    <input className='input'
                         onChange={this.props.setLastNameState}/>
 
             </div>

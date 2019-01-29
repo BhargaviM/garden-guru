@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import PlantSelector from './form-components/PlantSelector';
-import ZoneSelector from './form-components/ZoneSelector';
 import Names from './form-components/Names';
 import UserEmail from './form-components/UserEmail';
-import SavePlantsSelection from './form-components/SavePlantsSelection';
+import TextArea from './form-components/TextArea';
+import SaveButton from './form-components/SaveButton';
 import SaveStatus from './form-components/SaveStatus';
-import PlantCare from './plant-care/PlantCare';
 import axios from 'axios';
-import Scroll from 'react-scroll';
 
-var scroller = Scroll.scroller;
-
+// TODO Add to Utils.js and reuse it in PlantSelectionForm.js
 function formFullName (firstName, lastName) {
     let fullName = '';
     if (firstName) {
@@ -23,37 +19,16 @@ function formFullName (firstName, lastName) {
     return fullName;
 }
 
-class Form extends Component {
+class Help extends Component {
     state = {
-        selectedPlants: [], // save a list of selected plants
-        customPlants: '',
-        saveStatus: 'none',
-        selectedZone: '',
         firstName: '',
         lastName: '',
         isEmailValid: true,
         email: '',
+        helpText: '',
         submitEnabled: false,
-        plantsCare: false,
-        isLoading: ''
-    }
-
-    // An event to pass along to the <PlantSelector />
-    // Update the selected plants
-    handlePlantsSelectionChange = (selectedPlants) => {
-        this.setState({ selectedPlants });
-        this.setState({ saveStatus: 'none' });
-    }
-
-    // Save the plants input text box
-    setPlantNamesText = event => {
-        this.setState({ customPlants: event.target.value });
-    }
-
-    // Save Zone Selected in state
-    handleZoneChange = selectedZone => {
-        this.setState({ selectedZone });
-        this.setState({ saveStatus: 'none' });
+        isLoading: '',
+        saveStatus: 'none',
     }
 
     setFirstNameState = event => {
@@ -67,36 +42,28 @@ class Form extends Component {
     // Save Email in state
     setEmailState= emailObj => {
         this.setState({email: emailObj.email});
-        this.setState({isEmailValid: emailObj.isEmailValid})
+        this.setState({isEmailValid: emailObj.isEmailValid});
     }
 
-    // Check if all the fields are selected
+    setTextAreaChange = event => {
+        this.setState({ helpText: event.target.value });
+    }
+
+    // Check if all the required fields are set
     componentDidUpdate = (a, b) => {
         const submitEnabled = this.state.submitEnabled;
-        // Plants
-        if (Array.isArray(this.state.selectedPlants) && (this.state.selectedPlants.length === 0)) {
-            // Update the state only if its different from the current state
-            // so as not to create an infinite loop.
-            if (submitEnabled === false) {
-                return;
-            } else {
-                this.setState({submitEnabled: false});
-                return;
-            }
-        }
-
-        // Zone
-        if (this.state.selectedZone === undefined || this.state.selectedZone === '') {
-            if (submitEnabled === false) {
-                return;
-            } else {
-                this.setState({submitEnabled: false});
-                return;
-            }
-        }
-
         // Email
         if (this.state.email === '' || this.state.email === undefined || !this.state.isEmailValid) {
+            if (submitEnabled === false) {
+                return;
+            } else {
+                this.setState({submitEnabled: false});
+                return;
+            }
+        }
+
+        // TextArea
+        if (this.state.helpText === '' || this.state.email === undefined) {
             if (submitEnabled === false) {
                 return;
             } else {
@@ -114,29 +81,24 @@ class Form extends Component {
         }
     }
 
-    // An event to pass along to the <SavePlantsSelection />
+    // An event to pass along to the <SaveButton />
     // Submit the form
     handleSubmit = event => {
         event.preventDefault();
         this.setState({
-            plantsCare: false,
             isLoading: 'is-loading'
         });
 
         const fullName = formFullName(this.state.firstName, this.state.lastName);
 
         const request = {
-            plants: this.state.selectedPlants.map(plant => {
-                return plant.value;
-            }),
-            custom_plants: this.state.customPlants,
-            zone: this.state.selectedZone.value,
             email: this.state.email,
             first_name: this.state.firstName,
             last_name: this.state.lastName,
-            full_name: fullName
+            full_name: fullName,
+            message: this.state.helpText
         }
-        axios.post('http://localhost:4000/plants', request)
+        axios.post('http://localhost:4000/helps/new', request)
             .then(res => {
                 this.setState({saveStatus: 'success'});
                 setTimeout(() => {
@@ -148,12 +110,6 @@ class Form extends Component {
                     isLoading: ''
                 });
                 console.log("POST successful.");
-
-                scroller.scrollTo('myScrollToElement', {
-                    duration: 1500,
-                    delay: 100,
-                    smooth: true
-                });
             })
             .catch(err => {
                 this.setState({saveStatus: 'error'});
@@ -162,26 +118,30 @@ class Form extends Component {
     }
 
     render() {
+        const getInTouchStyle = { fontFamily: 'Francois One, sans-serif' };
+        const textStyles = { marginBottom: '.75em' };
+
         return (
             <div>
                 <section className="section container">
                         <div className="columns">
                             <div className="column is-6 is-offset-3">
+                                <div className="has-text-centered has-text-weight-bold is-size-3"
+                                    style={getInTouchStyle}>
+                                    GET IN TOUCH!
+                                </div>
+                                <div className="has-text-centered is-size-6 is-italic" style={textStyles}>
+                                    We are here to help. How can we help you?
+                                </div>
                                 <div className="box">
-                                    <PlantSelector
-                                        selectedPlants={this.state.selectedPlants}
-                                        handlePlantsSelectionChange={this.handlePlantsSelectionChange}
-                                        setPlantNamesText={this.setPlantNamesText}/>
-                                    <ZoneSelector
-                                        selectedZone={this.state.selectedZone}
-                                        handleZoneChange={this.handleZoneChange}/>
                                     <Names
                                         setFirstNameState={this.setFirstNameState}
                                         setLastNameState={this.setLastNameState}/>
                                     <UserEmail setEmailState={this.setEmailState}
                                         isEmailValid={this.state.isEmailValid} />
+                                    <TextArea setTextAreaChange={this.setTextAreaChange} />
                                     <div className="field is-grouped has-text-centered">
-                                        <SavePlantsSelection
+                                        <SaveButton
                                             isLoading={this.state.isLoading}
                                             handleSubmit={this.handleSubmit}
                                             disabled={!this.state.submitEnabled}/>
@@ -192,10 +152,9 @@ class Form extends Component {
                         </div>
 
                 </section>
-                {this.state.plantsCare ? <section><PlantCare care={this.state.plantsCare}/></section> : ''}
             </div>
         );
     }
 }
 
-export default Form;
+export default Help;

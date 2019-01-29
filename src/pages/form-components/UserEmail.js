@@ -23,7 +23,6 @@ class UserEmail extends Component {
                 <label className="label">Email </label>
                 <div className="control">
                     <input className={this.props.isEmailValid ? 'input ' : 'input is-danger'} type="email"
-                        placeholder="Email"
                         onChange={this.handleEmailChange}/>
                 </div>
                 <p className="help is-danger"></p>
