@@ -43,7 +43,7 @@ class App extends Component {
         return (
             <div>
                 <div>
-                    <section className="hero is-primary">
+                    <section className="hero is-small">
                         <NavBar
                             homeNavStatus={this.state.homeNavStatus}
                             handleHomeClick={this.handleHomeClick}
@@ -51,6 +51,8 @@ class App extends Component {
                             handleAboutUsClick={this.handleAboutUsClick}
                             helpNavStatus={this.state.helpNavStatus}
                             handleHelpClick={this.handleHelpClick}/>
+                    </section>
+                    <section className="hero is-primary">
                         <Header handleAboutUsClick={this.handleAboutUsClick}/>
                     </section>
                     <Switch>

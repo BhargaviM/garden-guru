@@ -12,7 +12,7 @@ class Header extends Component {
                         We will help your garden flourish!
                     </h1>
                     <h2 className="subtitle">
-                        Taking care of a garden is a lot of work. You have to mulch, fertilize, prune different plants at different times. Every plant needs a specific fertilizer. Tell us which plants you have in your garden and we will send you timely reminders to prune, mulch and fertilize them.
+                        Taking care of a garden is a lot of work. Each plant is on its own schedule. You have to mulch, fertilize with a plant specific fertilizer and prune different plants at different times. Tell us which plants you have in your garden and we will send you timely reminders.
                         &nbsp; <a href='/about-us' style={aStyle} className="is-italic is-size-6" onClick={this.props.handleAboutUsClick}>Read More ></a>
                     </h2>
                 </div>

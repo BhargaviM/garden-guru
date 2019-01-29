@@ -5,21 +5,18 @@ import Logo from './images/watering-can.png';
 class NavBar extends Component {
     render() {
         // CSS styling for the Logo on the top left
-        const imgStyle = { 'maxHeight': '42px', 'paddingRight': '5px'};
         const spanStyle = {
-            'fontFamily': 'Oswald, sans-serif',
-            'textDecoration': 'underline'
+            'fontFamily': 'Oswald, sans-serif'
         };
 
         // Nav bar copied from https://github.com/dansup/bulma-templates/blob/master/templates/tabs.html
         return (
-            <div className="hero-head">
-                <nav className="navbar">
+            <div className="hero-body">
+                <nav className="navbar is-white">
                     <div className="container">
                         <div className="navbar-brand">
                             <a className="navbar-item" href="/">
-                                <img src={Logo} alt="Logo" style={imgStyle}/>
-                                <span className="title has-text-weight-bold" style={spanStyle}>Garden Guru</span>
+                                <span className="has-text-weight-bold is-size-2" style={spanStyle}>GARDEN GURU</span>
                             </a>
                             <span className="navbar-burger burger" data-target="navbarMenu">
                                 <span></span>
