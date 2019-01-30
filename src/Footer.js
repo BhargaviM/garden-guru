@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 
 class Footer extends Component {
     render() {
+        const footerStyle = {
+            backgroundColor: '#fff',
+            color: '#0a0a0a'
+        }
+
         return (
-            <footer className="footer">
+            <footer className="footer" style={footerStyle}>
                 <div className="content has-text-centered">
                     <p>
                         <strong>Garden Center</strong> by <span className="has-text-info">Plant Protector Inc</span>. The source code is licensed by

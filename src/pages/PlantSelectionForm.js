@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Header from '../Header';
 import PlantSelector from './form-components/PlantSelector';
 import ZoneSelector from './form-components/ZoneSelector';
 import Names from './form-components/Names';
@@ -162,8 +163,18 @@ class Form extends Component {
     }
 
     render() {
+        const heroStyle = {
+            backgroundImage: "url('background.jpg')",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "50% 50%"
+        }
+
         return (
             <div>
+                <section className="hero is-fullheight" style={heroStyle}>
+                    <Header handleAboutUsClick={this.props.handleAboutUsClick}/>
+                </section>
                 <section className="section container">
                         <div className="columns">
                             <div className="column is-6 is-offset-3">

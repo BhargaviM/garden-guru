@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
-import Header from './Header';
 import PlantSelectionForm from './pages/PlantSelectionForm';
 import AboutUs from './pages/AboutUs';
 import Help from './pages/Help';
@@ -52,11 +51,8 @@ class App extends Component {
                             helpNavStatus={this.state.helpNavStatus}
                             handleHelpClick={this.handleHelpClick}/>
                     </section>
-                    <section className="hero is-primary">
-                        <Header handleAboutUsClick={this.handleAboutUsClick}/>
-                    </section>
                     <Switch>
-                        <Route exact path='/' component={PlantSelectionForm}/>
+                        <Route exact path='/' component={PlantSelectionForm} handleAboutUsClick={this.handleAboutUsClick}/>
                         <Route path='/about-us' component={AboutUs} onClick={this.setAboutUsState}/>
                         <Route path='/help' component={Help}/>
                     </Switch>
