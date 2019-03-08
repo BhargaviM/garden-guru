@@ -112,7 +112,10 @@ class Help extends Component {
                 console.log("POST successful.");
             })
             .catch(err => {
-                this.setState({saveStatus: 'error'});
+                this.setState({
+                    saveStatus: 'error',
+                    isLoading: ''
+                });
                 console.log("POST failed.");
             });
     }
@@ -143,7 +146,8 @@ class Help extends Component {
                                     <SaveButton
                                         isLoading={this.state.isLoading}
                                         handleSubmit={this.handleSubmit}
-                                        disabled={!this.state.submitEnabled}/>
+                                        disabled={!this.state.submitEnabled}
+                                        text="Submit"/>
                                     <SaveStatus saveStatus={this.state.saveStatus}/>
                                 </div>
                             </div>
@@ -151,37 +155,6 @@ class Help extends Component {
                     </div>
                 </div>
             </section>
-            // <div>
-            //     <section className="section container">
-            //             <div className="columns">
-            //                 <div className="column is-6 is-offset-3">
-            //                     <div className="has-text-centered has-text-weight-bold is-size-3"
-            //                         style={getInTouchStyle}>
-            //                         GET IN TOUCH!
-            //                     </div>
-            //                     <div className="has-text-centered is-size-6 is-italic" style={textStyles}>
-            //                         We are here to help. How can we help you?
-            //                     </div>
-            //                     <div className="box">
-            //                         <Names
-            //                             setFirstNameState={this.setFirstNameState}
-            //                             setLastNameState={this.setLastNameState}/>
-            //                         <UserEmail setEmailState={this.setEmailState}
-            //                             isEmailValid={this.state.isEmailValid} />
-            //                         <TextArea setTextAreaChange={this.setTextAreaChange} />
-            //                         <div className="field is-grouped has-text-centered">
-            //                             <SaveButton
-            //                                 isLoading={this.state.isLoading}
-            //                                 handleSubmit={this.handleSubmit}
-            //                                 disabled={!this.state.submitEnabled}/>
-            //                             <SaveStatus saveStatus={this.state.saveStatus}/>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //
-            //     </section>
-            // </div>
         );
     }
 }

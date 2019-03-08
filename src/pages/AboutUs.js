@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Team extends Component {
+class AboutUs extends Component {
     render() {
         return (
             <section className="hero is-light is-medium">
@@ -22,4 +22,4 @@ class Team extends Component {
     }
 }
 
-export default Team;
+export default AboutUs;

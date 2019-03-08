@@ -82,7 +82,6 @@ class PlantSelector extends Component {
         const plantNamesTextBoxStyles = {
             marginTop: '.5em'
         }
-
         const formatGroupLabel = data => (
             <div style={groupStyles}>
                 <span>{data.label}</span>
@@ -92,7 +91,7 @@ class PlantSelector extends Component {
 
         return (
             <div className="field">
-                <label className="label">Select plants in your garden</label>
+                <label className="label" style={this.props.labelStyle}>Select plants in your garden</label>
                 <div className="control">
                     <Select
                         value={this.props.selectedPlants}

@@ -24,15 +24,15 @@ class ZoneSelector extends Component {
     render() {
         return (
             <div className="field">
-                <label className="label">Zone </label>
-                <div className="control">
+                <label className="label" style={this.props.labelStyle}>Zone </label>
+                <div className="control is-expanded">
                     <Select
                         value={this.props.selectedZone}
                         onChange={this.props.handleZoneChange}
-                        options={this.state.options}
-                    />
+                        options={this.state.options}/>
                 </div>
             </div>
+
         );
     }
 }

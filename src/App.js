@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './NavBar';
-import PlantSelectionForm from './pages/PlantSelectionForm';
+import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import Help from './pages/Help';
+import Admin from './pages/Admin';
 import Footer from './Footer';
 
 class App extends Component {
@@ -52,9 +53,10 @@ class App extends Component {
                             handleHelpClick={this.handleHelpClick}/>
                     </section>
                     <Switch>
-                        <Route exact path='/' component={PlantSelectionForm} handleAboutUsClick={this.handleAboutUsClick}/>
+                        <Route exact path='/' component={HomePage} handleAboutUsClick={this.handleAboutUsClick}/>
                         <Route path='/about-us' component={AboutUs} onClick={this.setAboutUsState}/>
                         <Route path='/help' component={Help}/>
+                        <Route path='/admin' component={Admin}/>
                     </Switch>
                 </div>
                 <div><Footer /></div>

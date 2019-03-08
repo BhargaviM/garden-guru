@@ -3,11 +3,15 @@ import React, { Component } from 'react';
 class CareCard extends Component {
     render() {
         let careByPlant = this.props.careForMonth;
+        const monthStyle = {
+            fontFamily: 'Francois One, sans-serif',
+            textDecoration: 'underline'
+        };
 
         return (
             <div className="column">
                 <div className="box">
-                    <h5 className="title is-5">{this.props.month}</h5>
+                    <h5 className="title is-5 is-success" style={monthStyle}>{this.props.month}</h5>
                     <table className="table is-striped">
                         <tbody>
                             {careByPlant.map((plant, index) => {

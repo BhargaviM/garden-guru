@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Footer extends Component {
+class HomePage extends Component {
     render() {
         const footerStyle = {
             backgroundColor: '#fff',
@@ -21,4 +21,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default HomePage;

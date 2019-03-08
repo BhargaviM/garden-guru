@@ -20,7 +20,7 @@ class UserEmail extends Component {
         return (
             <div className="field">
                 {/* Email field validation: https://bulma.io/documentation/form/general/ */}
-                <label className="label">Email </label>
+                <label className="label" style={this.props.labelStyle}>Email </label>
                 <div className="control">
                     <input className={this.props.isEmailValid ? 'input ' : 'input is-danger'} type="email"
                         onChange={this.handleEmailChange}/>

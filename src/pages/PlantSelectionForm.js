@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../Header';
 import PlantSelector from './form-components/PlantSelector';
-import ZoneSelector from './form-components/ZoneSelector';
+import ZoneZipcodeSelector from './form-components/ZoneZipcodeSelector';
 import Names from './form-components/Names';
 import UserEmail from './form-components/UserEmail';
 import SaveButton from './form-components/SaveButton';
@@ -30,6 +29,7 @@ class Form extends Component {
         customPlants: '',
         saveStatus: 'none',
         selectedZone: '',
+        // zipcode: '',
         firstName: '',
         lastName: '',
         isEmailValid: true,
@@ -86,7 +86,9 @@ class Form extends Component {
             }
         }
 
-        // Zone
+        // Either Zone or Zipcode is entered
+        // if ((this.state.selectedZone === undefined || this.state.selectedZone === '') &&
+        // (this.state.zipcode === '' || this.state.zipcode === undefined || !this.state.zipcode)) {
         if (this.state.selectedZone === undefined || this.state.selectedZone === '') {
             if (submitEnabled === false) {
                 return;
@@ -132,6 +134,7 @@ class Form extends Component {
             }),
             custom_plants: this.state.customPlants,
             zone: this.state.selectedZone.value,
+            // zipcode: this.state.zipcode,
             email: this.state.email,
             first_name: this.state.firstName,
             last_name: this.state.lastName,
@@ -157,52 +160,59 @@ class Form extends Component {
                 });
             })
             .catch(err => {
-                this.setState({saveStatus: 'error'});
+                this.setState({
+                    saveStatus: 'error',
+                    isLoading: ''
+                });
                 console.log("POST failed.");
             });
     }
 
     render() {
-        const heroStyle = {
-            backgroundImage: "url('background.jpg')",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "50% 50%"
-        }
+        const sectionStyle = {backgroundColor: "#F3FFEB", padding: "2rem 0px"};
+        const francoisFontStyle = {fontFamily: "Francois One, sans-serif"};
+        const robotoFontStyle = {fontFamily: "Roboto"};
+        const labelStyle = {fontFamily: "Slabo", fontSize: "1.1rem"};
 
         return (
             <div>
-                <section className="hero is-fullheight" style={heroStyle}>
-                    <Header handleAboutUsClick={this.props.handleAboutUsClick}/>
-                </section>
-                <section className="section container">
+                <div style={sectionStyle}>
+                    <section className="section container">
                         <div className="columns">
                             <div className="column is-6 is-offset-3">
+                                <h2 className="title is-size-2 has-text-centered" style={francoisFontStyle}>LET'S GET STARTED</h2>
+                                <h2 className="subtitle is-size-6 has-text-centered" style={robotoFontStyle}>Tell us a little bit about your garden to see your customized calendar.</h2>
                                 <div className="box">
                                     <PlantSelector
+                                        labelStyle = {labelStyle}
                                         selectedPlants={this.state.selectedPlants}
                                         handlePlantsSelectionChange={this.handlePlantsSelectionChange}
                                         setPlantNamesText={this.setPlantNamesText}/>
-                                    <ZoneSelector
+                                    <ZoneZipcodeSelector
+                                        labelStyle = {labelStyle}
                                         selectedZone={this.state.selectedZone}
                                         handleZoneChange={this.handleZoneChange}/>
                                     <Names
+                                        labelStyle = {labelStyle}
                                         setFirstNameState={this.setFirstNameState}
                                         setLastNameState={this.setLastNameState}/>
                                     <UserEmail setEmailState={this.setEmailState}
-                                        isEmailValid={this.state.isEmailValid} />
+                                        labelStyle = {labelStyle}
+                                        isEmailValid={this.state.isEmailValid}/>
                                     <div className="field is-grouped has-text-centered">
                                         <SaveButton
+                                            labelStyle = {labelStyle}
                                             isLoading={this.state.isLoading}
                                             handleSubmit={this.handleSubmit}
-                                            disabled={!this.state.submitEnabled}/>
+                                            disabled={!this.state.submitEnabled}
+                                            text="See my custom calendar"/>
                                         <SaveStatus saveStatus={this.state.saveStatus}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                </section>
+                    </section>
+                </div>
                 {this.state.plantsCare ? <section><PlantCare care={this.state.plantsCare}/></section> : ''}
             </div>
         );

@@ -7,7 +7,7 @@ class SaveButton extends Component {
                 <button className={`button is-primary  ${this.props.isLoading}`}
                     onClick={this.props.handleSubmit}
                     disabled={this.props.disabled} >
-                    <span>Submit</span>
+                    <span>{this.props.text}</span>
                 </button>
             </div>
         );
